@@ -10,27 +10,47 @@
 </head>
 <body>
   <div id="app">
-    <button v-on:click="contador++" >Sumar 1</button>
-    <button v-on:click="contador--">Restar 1</button>
-    <!-- <button @click="restar">Restar 1</button> -->
-    El contador esta en {{ contador }}
+    <input type="text" name="nombre" placeholder="Escribe tu nombre" 
+    v-model:value="nombre"
+    >
+    <!-- Existe una diferencia entre v-model:value o v-model (solo) -->
+    <!-- v-bind:value="nombre" -->
+    <p>Tu nombre en mayuscula es : {{ nombre | uppercase}}</p>
+    <form  v-on:submit.prevent="submit" action="">  
+      <h2>Cuales son tus cursos favoritos?</h2>
+      <input v-model:name="checbfavorite" type="checkbox" id="vue" value="vue">
+      <label for="vue">Curso de vue.js</label>
+      <input v-model:name="checbfavorite" type="checkbox" id="ceo" value="ceo">
+      <label for="ceo">Curso de Ceo</label>
+      <input v-model:name="checbfavorite" type="checkbox" id="react" value="react">
+      <label for="react">Curso de react.js</label>
+      <input v-model:name="checbfavorite" type="checkbox" id="mongo" value="mongo">
+      <label for="react">Curso de Mongo</label>
+      <button type="submit">Enviar</button>
+
+    </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script type="text/javascript">
     let app = new Vue({
       el: '#app',
       data: {
-        contador: 0 
-      }
-      // ,
-      //   methods: { 
-      //   sumar: function () {
-      //     this.contador++
-      //   },
-      //   restar: function() {
-      //     this.contador--
-      //   }
-      // }      
+        nombre: '',
+        checbfavorite: []
+      },
+      filters: {
+        uppercase: function (str) {
+          return str.toUpperCase();
+        }
+      },
+      methods: {
+        submit: function () {
+          console.log('Se ejecuta el metodo submit');
+          console.log(`Su nombre es ${this.nombre} y los curso que eligio ${this.checbfavorite}`)
+          console.log(this.checbfavorite)
+        }
+      },
+     
     })
   
   </script>
